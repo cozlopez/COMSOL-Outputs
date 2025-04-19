@@ -27,9 +27,10 @@ rotated_nozzle_area[:,0] = nozzle_area[:,1]
 rotated_nozzle_area[:,1] = nozzle_area[:,0]
 nozzle_area = rotated_nozzle_area
 # create a circle size 4.5 to plot for positive quadrant 
-circle = np.zeros((100,2))
-circle[:,0] = 4.7*np.cos(np.linspace(0, np.pi/2, 100))
-circle[:,1] = 4.7*np.sin(np.linspace(0, np.pi/2, 100))
+# create a circle size 4.5 centered around (0, 1) to plot for positive quadrant
+circle = np.zeros((100, 2))
+circle[:, 0] = 4 * np.cos(np.linspace(0, np.pi / 2, 100))
+circle[:, 1] = 4 * np.sin(np.linspace(0, np.pi / 2, 100)) +0.8
 
 
 
@@ -62,11 +63,18 @@ contour = plt.tricontourf(triang, P_real, cmap='seismic', levels=levels, extend=
 cbar = plt.colorbar(contour, ticks=np.linspace(vmin, vmax, 5))
 cbar.set_label("Real Part of Sound Pressure (Pa)")
 # Plot black line connecting all points in nozzle area
-plt.plot(nozzle_area[:,0], nozzle_area[:,1], color='black')
+plt.plot(nozzle_area[:,0], nozzle_area[:,1]*1.2912, color='black',linewidth=2)
 # plot quadrant
-plt.plot(circle[:,0], circle[:,1])
+plt.plot(circle[:,0], circle[:,1], color='blue',linewidth=2)
+plt.plot([4, 4], [0.8, 0], color='blue',linewidth=2)
+plt.plot([0.21, 0.2771134021],[0.48* 1.2912, 0.48* 1.2912], color='black',linewidth=2)
+
 # Set aspect ratio to 1:1
 plt.axis('equal')
+# Black out the area between the contraction profile and the x = 0 wall
+x_blackout = np.concatenate((nozzle_area[:, 0], [0, 0]))  # Add x = 0 for the left wall
+y_blackout = np.concatenate((nozzle_area[:, 1] * 1.2912, [nozzle_area[:, 1].max() * 1.2912, nozzle_area[:, 1].min() * 1.2912]))  # Add corresponding y values
+plt.fill(x_blackout, y_blackout, color='white', zorder=1)
 
 # Labels and display
 plt.xlabel("Y (m)")
