@@ -3,10 +3,13 @@ import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 
 # Load data (Ensure "i" is replaced with "j" for complex numbers)
-filename = "Untitled.txt"
+filename = "Untitled2.txt"
 with open(filename, "r") as f:
     lines = [line.replace("i", "j") for line in f]
 
+
+
+lines = [line for line in lines if not line.strip().startswith('%')]
 data = np.loadtxt(lines, dtype=complex)
 
 # Load nozzle area data no complex just r and z
@@ -39,7 +42,7 @@ circle[:, 1] = 4 * np.sin(np.linspace(0, np.pi / 2, 100)) +0.8
 # Extract cylindrical coordinates and convert to Cartesian
 R = data[:, 0].real  # Radial coordinate
 Z = data[:, 1].real  # Axial coordinate
-P_complex = data[:, 2]  # Complex sound pressure
+P_complex = data[:, 3]  # Complex sound pressure
 
 # Convert to Cartesian (Y-Z plane)
 Y = R
@@ -63,11 +66,13 @@ contour = plt.tricontourf(triang, P_real, cmap='seismic', levels=levels, extend=
 cbar = plt.colorbar(contour, ticks=np.linspace(vmin, vmax, 5))
 cbar.set_label("Real Part of Sound Pressure (Pa)")
 # Plot black line connecting all points in nozzle area
-plt.plot(nozzle_area[:,0], nozzle_area[:,1]*1.2912, color='black',linewidth=2)
+plt.plot(nozzle_area[:,0], nozzle_area[:,1]*1.2912, color='black',linewidth=1)
 # plot quadrant
-plt.plot(circle[:,0], circle[:,1], color='blue',linewidth=2)
-plt.plot([4, 4], [0.8, 0], color='blue',linewidth=2)
-plt.plot([0.21, 0.2771134021],[0.48* 1.2912, 0.48* 1.2912], color='black',linewidth=2)
+plt.plot(circle[:,0], circle[:,1], color='black',linewidth=1.5)
+plt.plot([4, 4], [0.8, 0], color='black',linewidth=1.5)
+plt.plot([0.21, 0.2771134021],[0.48* 1.2912, 0.48* 1.2912], color='black',linewidth=1.5)
+plt.plot([0, 0],[4.8, 0.48* 1.2912+0.005], color='black',linewidth=1.5)
+plt.plot([0.3,4],[0,0], color='black',linewidth=1.5)
 
 # Set aspect ratio to 1:1
 plt.axis('equal')
