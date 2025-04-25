@@ -34,7 +34,7 @@ def SPL_directivity_input_data(Filename,selectedfrequency, sweep = False):
                         header=None, 
                         engine='python')
 
-
+        frequencies = [500,1500,2500,3500,4500,5500,6500,7500,8500,9500,10500]
         
         columns = ['R', 'Z']
 
