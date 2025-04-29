@@ -18,5 +18,5 @@ for y in range(len(next(os.walk(foldercounter))[1])):
 
 
 
-    data = SPL_directivity_input_data(shortpath,8500, sweep = True) # No sweep
-    Soundlevelplots(data, 8500, Heightdipole , frequencysweep = True) # No sweep
+    data = SPL_directivity_input_data(shortpath,3000) # No sweep
+    Soundlevelplots(data, 3000, Heightdipole) # No sweep

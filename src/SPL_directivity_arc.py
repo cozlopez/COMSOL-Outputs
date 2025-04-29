@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import scipy
 from scipy import *
+import os
 
 Dext = 0.42
 dz_rs_step = 0.4
@@ -121,7 +122,11 @@ def SPLplots(selectedfrequency,data,Heightdipole,frequencysweep = False):
             plt.grid(True)
             plt.xlim(0, max(arc_length)+0.05)      # Set x-axis limits
             plt.ylim(min(pressureoutput)-5, max(pressureoutput)+5)    # Set y-axis limits
-            plt.savefig(f"OUTPUTS/{Heightdipole}/SPL directivity/SPL directivity {Heightdipole} f_{frequencies[j]}.png", dpi=1000, bbox_inches='tight')
+            output_folder = f"OUTPUTS/{Heightdipole}/SPL directivity/"
+            os.makedirs(output_folder, exist_ok=True)
+            plt.savefig(f"{output_folder}/SPL directivity {Heightdipole} f_{frequencies[j]}.png", dpi=1000, bbox_inches='tight')
+            
+            
             plt.close()
         return None
 
@@ -177,7 +182,10 @@ def SPLplots(selectedfrequency,data,Heightdipole,frequencysweep = False):
         plt.grid(True)
         plt.xlim(0, max(arc_length)+0.05)      # Set x-axis limits
         plt.ylim(min(pressureoutput)-5, max(pressureoutput)+5)    # Set y-axis limits
-        plt.savefig(f"OUTPUTS/{Heightdipole}/SPL directivity/SPL directivity {Heightdipole} f_{selectedfrequency}.png", dpi=1000, bbox_inches='tight')
+        output_folder = f"OUTPUTS/{Heightdipole}/SPL directivity/"
+        os.makedirs(output_folder, exist_ok=True)
+    
+        plt.savefig(f"{output_folder}/SPL directivity {Heightdipole} f_{selectedfrequency}.png", dpi=1000, bbox_inches='tight')
 
         plt.close()
         return None

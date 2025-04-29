@@ -98,7 +98,7 @@ def Soundlevelplots(data, selectedfrequency, Heightdipole, frequencysweep = Fals
     else:
             frequencies = [selectedfrequency]
         # Extract cylindrical coordinates and convert to Cartesian
-            pressure_col = f' acpr3.Lp_t (dB) @ freq={frequencies}'
+            pressure_col = f' acpr3.Lp_t (dB) @ freq={frequencies[0]}'
             pressureoutput = []
             mask_circle = (data['R']**2 + (data['Z'] - 0.8)**2) <= 16
 
